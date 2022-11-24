@@ -19,4 +19,4 @@
     sudo npm install nodemon -g
     npm i @babel/cli @babel/core @babel/node @babel/preset-env --save-dev
     source .env.local
-    nohup npm start 2>/dev/null 1>/dev/null&
+    (npm run start&) > /tmp/app.log 2>&1 &
