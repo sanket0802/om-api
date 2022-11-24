@@ -1,0 +1,108 @@
+tags:
+  - name: Users
+    description: Endpoints for managing users
+
+/users/login:
+  post:
+    tags:
+      - Users
+    summary: login with mobile
+    produces:
+      - application/json
+    consumes:
+      - application/json
+    parameters:
+      - name: Request body
+        in: body
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+        required:
+          - email
+    responses:
+      200:
+        description: User logged in successfully
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+            message: 
+              type: string
+
+/users/{userId}:
+  parameters:
+    - name: userId
+      in: path
+      description: user ID
+      required: true
+      type: string
+  get:
+    tags:
+      - Users
+    summary: Retrieve details of a users
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Requested user
+        schema:
+          type: object
+          $ref: '#/definitions/UserResponseDTO'
+  put:
+    tags:
+      - Users
+    parameters:
+    - name: Request Body
+      in: body
+      description: update users records
+      required: true
+      schema:
+        type: object
+        $ref: '#/definitions/UserRequestDTO'
+    summary: user to be updated
+    produces:
+      - application/json
+    responses:
+      200:
+        description: user to be updated
+        schema:
+          type: object
+          $ref: '#/definitions/UserResponseDTO'
+
+definitions:
+  UserRequestDTO:
+    properties:
+      fullName:
+        type: string
+      email: 
+        type: string
+      tenant_id:
+        type: string
+      role_id:
+        type: string
+      display_name:
+        type: string
+      designation:
+        type: string
+
+  UserResponseDTO:
+    properties:
+      _id:
+        type: string
+      fullName:
+        type: string
+      email: 
+        type: string
+      tenant_id:
+        type: string
+      role_id:
+        type: string
+      display_name:
+        type: string
+      designation:
+        type: string

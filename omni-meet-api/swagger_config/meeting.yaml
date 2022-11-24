@@ -1,0 +1,162 @@
+tags:
+  - name: Meetings
+    description: Endpoints for managing meetings
+
+/meeting:
+  post:
+    tags:
+      - Meetings
+    parameters:
+    - name: Request Body
+      in: body
+      description: post meeting records
+      required: true
+      schema:
+        type: object
+        $ref: '#/definitions/MeetingRequestDTO'
+    summary: meeting to be created
+    produces:
+      - application/json
+    responses:
+      200:
+        description: meeting to be created
+        schema:
+          type: object
+          $ref: '#/definitions/MeetingResponseDTO'
+
+/meeting/{id}:       
+  put:
+    tags:
+      - Meetings
+    parameters:
+    - name: id
+      in: path
+      description: meetingId
+      required: true
+      type: string
+    - name: Request Body
+      in: body
+      description: add users to the meeting
+      required: true   
+      schema: 
+        type: object
+        $ref: '#/definitions/MeetingRequestDTO'     
+    summary: Add Users to the meeting
+    produces: 
+      - application/json
+    responses: 
+      200:
+        description: add users to the meeting
+        schema: 
+          type: object
+          $ref: '#/definitions/MeetingResponseDTO'
+
+  get:
+    tags:
+      - Meetings
+    parameters:
+    - name: id
+      in: path
+      description: meeting id
+      required: true
+      type: string
+    summary: get meeting record
+    produces:
+      - application/json
+    responses:
+      200:
+        description: get meeting details based on id
+        schema:
+          type: object
+          $ref: '#/definitions/MeetingResponseDTO' 
+
+/checkroom:
+  get:
+    tags:
+      - Meetings
+    parameters:
+    - name: roomId
+      in: query
+      required: true
+      type: string
+    - name: date
+      in: query
+      required: true
+      type: string 
+    summary: get all available timings for a room
+    produces:
+      - application/json
+    responses:
+      200:
+        description: get all available timings for a room
+        schema:
+          type: object
+          $ref: '#/definitions/RoomResponseDTO' 
+/meeting/handover/{id}:
+  parameters:
+  - name: id
+    in: path
+    description:  meeting id
+    required: true
+    type: string
+  put:
+    tags:
+      - Meetings
+    summary: meeting to be updated
+    produces:
+      - application/json
+    responses:
+      200:
+        description: meeting to be updated
+        schema:
+          type: object
+          $ref: '#/definitions/MeetingResponseDTO'
+
+definitions:
+  MeetingRequestDTO:
+    properties:
+      roomId:
+        type: string
+      leadId:
+        type: string
+      date:
+        type: number
+      from_time:
+        type: number
+      end_time:
+        type: number
+      meeting_desc:
+        type: string
+      meeting_name:
+        type: string
+      users: 
+        type: array
+        items:
+          type: string
+      status:
+        type: string
+  
+  MeetingResponseDTO:
+    properties:
+      _id:
+        type: string
+      roomId:
+        type: string
+      leadId:
+        type: string
+      date:
+        type: number
+      from_time:
+        type: number
+      end_time:
+        type: number
+      meeting_desc:
+        type: string
+      meeting_name:
+        type: string
+      users: 
+        type: array
+        items:
+          type: string 
+      status:
+        type: string

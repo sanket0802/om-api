@@ -1,0 +1,219 @@
+tags:
+  - name: Rooms
+    description: Endpoints for managing rooms
+
+
+/rooms:
+  get:
+    tags:
+      - Rooms
+    parameters:
+    - name: status
+      in: query
+      required: false
+      type: string
+      enum: ['available', 'occupied']
+      default: available 
+    - name: date
+      in: query
+      required: false
+      type: number 
+    summary: get all available rooms
+    produces:
+      - application/json
+    responses:
+      200:
+        description: get all available rooms
+        schema:
+          type: object
+          $ref: '#/definitions/RoomResponseDTO'
+  post:
+    tags:
+      - Rooms
+    parameters:
+    - name: Request Body
+      in: body
+      description: post room records
+      required: true
+      schema:
+        type: object
+        $ref: '#/definitions/RoomRequestDTO'
+    summary: room to be created
+    produces:
+      - application/json
+    responses:
+      200:
+        description: room to be created
+        schema:
+          type: object
+          $ref: '#/definitions/RoomResponseDTO'
+
+
+/rooms/{id}:
+  parameters:
+  - name: id
+    in: path
+    description:  room id
+    required: true
+    type: string
+  put:
+    tags:
+      - Rooms
+    parameters:
+    - name: Request Body
+      in: body
+      description: update room records
+      required: true
+      schema:
+        type: object
+        $ref: '#/definitions/RoomRequestDTO'
+    summary: room to be updated
+    produces:
+      - application/json
+    responses:
+      200:
+        description: room to be updated
+        schema:
+          type: object
+          $ref: '#/definitions/RoomResponseDTO'
+
+/room/{id}:
+  parameters:
+  - name: id
+    in: path
+    description: room id
+    required: true
+    type: string
+  get:
+    tags:
+      - Rooms
+    parameters:
+    - name: date
+      in: query
+      description:  date
+      required: false
+      type: number
+    summary: get room record
+    produces:
+      - application/json
+    responses:
+      200:
+        description: get room details based on id
+        schema:
+          type: object
+          $ref: '#/definitions/RoomResponseDTO' 
+  delete:
+    tags:
+      - Rooms
+    parameters:
+    - name: id
+      in: path
+      description: room id
+      required: true
+      type: string
+    summary: room to be deleted
+    produces:
+      - application/json
+    responses:
+      200:
+        description: room to be deleted
+        schema:
+          type: object
+          $ref: '#/definitions/RoomResponseDTO'
+
+/room/lead/{id}:
+  parameters:
+  - name: id
+    in: path
+    description: lead id
+    required: true
+    type: string
+  - name: date
+    in: query
+    description:  date
+    required: false
+    type: number  
+  get:
+    tags:
+      - Rooms
+    summary: get room record
+    produces:
+      - application/json
+    responses:
+      200:
+        description: get room details based on id
+        schema:
+          type: object
+          $ref: '#/definitions/RoomResponseDTO' 
+
+
+/joinRoom:
+  post:
+    tags:
+      - Rooms
+    summary: Join Meeting Room
+    produces:
+      - application/json
+    consumes:
+      - application/json
+    parameters:
+      - name: Request body
+        in: body
+        schema:
+          type: object
+          properties:
+            room_id:
+              type: string
+            user_id:
+              type: string
+        required:
+          - room_id
+          - user_id
+    responses:
+      200:
+        description: Joined Room Succesfully
+        schema:
+          type: object
+          $ref: '#/definitions/RoomResponseDTO'
+# /automatichandover:
+#   get:
+#     tags:
+#       - Rooms
+#     summary: get room record
+#     produces:
+#       - application/json
+#     responses:
+#       200:
+#         description: get room details based on id
+#         schema:
+#           type: object
+#           $ref: '#/definitions/RoomResponseDTO' 
+
+definitions:
+  RoomResponseDTO:
+    properties:
+      _id:
+        type: string
+      room_name:
+        type: string
+      room_desc:
+        type: string
+      room_link:
+        type: string
+      room_id:
+        type: number
+  RoomRequestDTO:
+    properties:
+      room_name:
+        type: string
+      room_desc:
+        type: string
+      tenant_id:
+        type: string
+      amenities: 
+        type: array
+        items:
+          type: string
+          enum: ['string']
+
+      
