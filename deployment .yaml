@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  ApplicationStart:
+    - location: Startup.sh
+      timeout: 3600
+  ValidateService:
+    - location: Scripts/MonitorService.sh
+      timeout: 3600
+      runas: root
