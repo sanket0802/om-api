@@ -11,7 +11,6 @@
     sudo systemctl enable mongod
     sudo apt update -y
     cd /home/ubuntu/
-    git clone "https://siva1403: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@github.com/dev-omniwyse/omni-meet-api"
     curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
     sudo apt-get update && sudo apt-get install yarn -y
     sudo apt -y install nodejs
