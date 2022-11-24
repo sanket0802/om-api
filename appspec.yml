@@ -3,6 +3,7 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/
+file_exists_behavior: OVERWRITE
 hooks:
   ApplicationStart:
     - location: startup.sh
